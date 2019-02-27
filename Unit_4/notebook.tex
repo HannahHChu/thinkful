@@ -328,7 +328,7 @@ not apply to other bees such as bumblebees (Genus: Bombus), sweat bees
 (Genus: Lasioglossum), and many others.*
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} \PY{c+c1}{\PYZsh{} linear algebra}
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} \PY{c+c1}{\PYZsh{} linear algebra}
         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} \PY{c+c1}{\PYZsh{} data processing, CSV file I/O (e.g. pd.read\PYZus{}csv)}
         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pylab}
@@ -346,7 +346,7 @@ not apply to other bees such as bumblebees (Genus: Bombus), sweat bees
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}import dataset}
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}import dataset}
         \PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bee\PYZus{}Colony\PYZus{}Loss.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
         \PY{n}{maps}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{statelatlong.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
@@ -378,7 +378,7 @@ not apply to other bees such as bumblebees (Genus: Bombus), sweat bees
 \end{itemize}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Creating new dataframe with desired columns; grouped by state}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}Creating new dataframe with desired columns; grouped by state}
         \PY{n}{df1} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEEKEEPERS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLONIES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL\PYZus{}ANN\PYZus{}LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
         \PY{n}{df1}\PY{o}{=}\PY{n}{df1}\PY{p}{[}\PY{n}{df1}\PY{o}{.}\PY{n}{STATE} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultiStateOperation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
         \PY{n}{df2}\PY{o}{=}\PY{n}{df1}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
@@ -406,46 +406,53 @@ The data grouped by state did not suggest much, so a deeper look at loss
 over years may tell us which years to focus on.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{st}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
-         \PY{n}{loss}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL\PYZus{}ANN\PYZus{}LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{st}\PY{p}{,} \PY{n}{loss}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgoldenrod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEAN ANNUAL LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a. AVERAGE ANNUAL LOSS OF BEE COLONIES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}Normalizing/Scaling data}
-         \PY{n}{st}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         \PY{n}{col}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLONIES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         \PY{n}{bk}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEEKEEPERS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         
-         \PY{n}{col\PYZus{}norm}\PY{o}{=}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-         \PY{n}{bk\PYZus{}norm}\PY{o}{=}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{p}{[}\PY{n}{bk}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-         \PY{n}{ratio\PYZus{}st}\PY{o}{=}\PY{p}{(}\PY{n}{col\PYZus{}norm}\PY{o}{/}\PY{n}{bk\PYZus{}norm}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{st}\PY{p}{,} \PY{n}{ratio\PYZus{}st}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RATIO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b. COLONY:BEEKEEPER per STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{}\PYZsh{}Add figure caption}
-         \PY{n}{txt}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 1: a. The District of Columbia and Iowa have the highest rate of loss while Hawaii and Montana have the lowest rates of colony loss.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ b. Mississippi, North Dakota, South Dakota, and Nebraska stand out as the highest colony:beekeeper ratio. }\PY{l+s+s2}{\PYZdq{}}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.12}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{txt}\PY{p}{,} \PY{n}{wrap}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{st}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+        \PY{n}{loss}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL\PYZus{}ANN\PYZus{}LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{st}\PY{p}{,} \PY{n}{loss}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgoldenrod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEAN ANNUAL LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a. AVERAGE ANNUAL LOSS OF BEE COLONIES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}Normalizing/Scaling data}
+        \PY{n}{st}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{col}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLONIES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{bk}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEEKEEPERS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{col\PYZus{}norm}\PY{o}{=}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{bk\PYZus{}norm}\PY{o}{=}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{p}{[}\PY{n}{bk}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{ratio\PYZus{}st}\PY{o}{=}\PY{p}{(}\PY{n}{col\PYZus{}norm}\PY{o}{/}\PY{n}{bk\PYZus{}norm}\PY{p}{)}
+        
+        \PY{n}{popmean}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL\PYZus{}ANN\PYZus{}LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{st}\PY{p}{,} \PY{n}{ratio\PYZus{}st}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RATIO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b. COLONY:BEEKEEPER per STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}Add figure caption}
+        \PY{n}{txt}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 1: a. The District of Columbia and Iowa have the highest rate of loss while Hawaii and Montana have the lowest rates of colony loss.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ b. Mississippi, North Dakota, South Dakota, and Nebraska stand out as the highest colony:beekeeper ratio. }\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.12}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{txt}\PY{p}{,} \PY{n}{wrap}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}41}]:} Text(0.12, -0.1, 'Figure 1: a. The District of Columbia and Iowa have the highest rate of loss while Hawaii and Montana have the lowest rates of colony loss.\textbackslash{}n b. Mississippi, North Dakota, South Dakota, and Nebraska stand out as the highest colony:beekeeper ratio. ')
+{\color{outcolor}Out[{\color{outcolor}4}]:} Text(0.12, -0.1, 'Figure 1: a. The District of Columbia and Iowa have the highest rate of loss while Hawaii and Montana have the lowest rates of colony loss.\textbackslash{}n b. Mississippi, North Dakota, South Dakota, and Nebraska stand out as the highest colony:beekeeper ratio. ')
 \end{Verbatim}
             
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_2.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -461,26 +468,26 @@ an uncommon. We may be in a period of loss and this can only be shown
 with more data collected over the next few decades.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{} Year with most loss}
-         \PY{n}{df\PYZus{}yr}\PY{o}{=}\PY{n}{df1}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL\PYZus{}ANN\PYZus{}LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
-         \PY{n}{yr\PYZus{}}\PY{o}{=}\PY{n}{df\PYZus{}yr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         \PY{n}{tal}\PY{o}{=}\PY{n}{df\PYZus{}yr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL\PYZus{}ANN\PYZus{}LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         \PY{n}{maxx}\PY{o}{=}\PY{n+nb}{max}\PY{p}{(}\PY{n}{tal}\PY{p}{)}
-         
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}yr}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
-         \PY{n}{b}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{yr\PYZus{}}\PY{p}{,} \PY{n}{tal}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{palegoldenrod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{b}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}color}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{goldenrod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AVERAGE LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Loss per Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{}\PYZsh{}Add figure caption}
-         \PY{n}{txt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Figure 2: The highest account of colony loss occurred in 2014 with an average of 0.447.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ However, the standard deviation was only 0.031 which is relatively low. }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ This may suggest the phenomena of media misinformation of the severity of colony loss.}\PY{l+s+s1}{\PYZsq{}}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.12}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{txt}\PY{p}{,} \PY{n}{wrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Year with most loss}
+        \PY{n}{df\PYZus{}yr}\PY{o}{=}\PY{n}{df1}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL\PYZus{}ANN\PYZus{}LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+        \PY{n}{yr\PYZus{}}\PY{o}{=}\PY{n}{df\PYZus{}yr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{tal}\PY{o}{=}\PY{n}{df\PYZus{}yr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL\PYZus{}ANN\PYZus{}LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{maxx}\PY{o}{=}\PY{n+nb}{max}\PY{p}{(}\PY{n}{tal}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}yr}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{b}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{yr\PYZus{}}\PY{p}{,} \PY{n}{tal}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{palegoldenrod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{b}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}color}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{goldenrod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AVERAGE LOSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Loss per Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}Add figure caption}
+        \PY{n}{txt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Figure 2: The highest account of colony loss occurred in 2014 with an average of 0.447.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ However, the standard deviation was only 0.031 which is relatively low. }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ This may suggest the phenomena of media misinformation of the severity of colony loss.}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.12}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{txt}\PY{p}{,} \PY{n}{wrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -516,42 +523,36 @@ dataset does not include size of colonies or health of colonies which
 may bias the data.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{}groupby year}
-         \PY{n}{df\PYZus{}yr2}\PY{o}{=}\PY{n}{df1}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLONIES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEEKEEPERS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
-         \PY{n}{yr}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{df\PYZus{}yr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         
-         \PY{n}{st}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         \PY{n}{col\PYZus{}yr}\PY{o}{=}\PY{n}{df\PYZus{}yr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLONIES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         \PY{n}{bk\PYZus{}yr}\PY{o}{=}\PY{n}{df\PYZus{}yr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEEKEEPERS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         
-         \PY{n}{norm\PYZus{}colyr}\PY{o}{=}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{p}{[}\PY{n}{col\PYZus{}yr}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-         \PY{n}{norm\PYZus{}bkyr}\PY{o}{=}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{p}{[}\PY{n}{bk\PYZus{}yr}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-         \PY{n}{ratio\PYZus{}yr}\PY{o}{=}\PY{p}{(}\PY{n}{norm\PYZus{}colyr}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{norm\PYZus{}bkyr}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{yr}\PY{p}{,} \PY{n}{ratio\PYZus{}yr}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RATIO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLONY:BEEKEEPER per YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{}\PYZsh{}Add figure caption}
-         \PY{n}{txt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Figure 3: In 2012, the number of colonies increased significantly, accounting for the spike in ratio of }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ colony to beekeeper. The ratio then tapers off again.}\PY{l+s+s1}{\PYZsq{}}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.12}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{txt}\PY{p}{,} \PY{n}{wrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-         
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}yr2}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}groupby year}
+        \PY{n}{df\PYZus{}yr2}\PY{o}{=}\PY{n}{df1}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLONIES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEEKEEPERS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+        \PY{n}{yr}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{df\PYZus{}yr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{st}\PY{o}{=}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{col\PYZus{}yr}\PY{o}{=}\PY{n}{df\PYZus{}yr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLONIES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{bk\PYZus{}yr}\PY{o}{=}\PY{n}{df\PYZus{}yr2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEEKEEPERS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{norm\PYZus{}colyr}\PY{o}{=}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{p}{[}\PY{n}{col\PYZus{}yr}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{norm\PYZus{}bkyr}\PY{o}{=}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{p}{[}\PY{n}{bk\PYZus{}yr}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{ratio\PYZus{}yr}\PY{o}{=}\PY{p}{(}\PY{n}{norm\PYZus{}colyr}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{norm\PYZus{}bkyr}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{yr}\PY{p}{,} \PY{n}{ratio\PYZus{}yr}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RATIO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COLONY:BEEKEEPER per YEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}Add figure caption}
+        \PY{n}{txt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Figure 3: In 2012, the number of colonies increased significantly, accounting for the spike in ratio of }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ colony to beekeeper. The ratio then tapers off again.}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.12}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{txt}\PY{p}{,} \PY{n}{wrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}yr2}\PY{p}{)}
 \end{Verbatim}
 
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-[0.49313513 0.45813881 1.41400492 0.96225218 1.07853005 0.97676048
- 0.79345732]
-
-    \end{Verbatim}
-
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -575,7 +576,7 @@ harsher winters, as colonies tend to have a difficult time recovering
 after a long or extremely cold winter (Genersch et al 2010).
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}65}]:} \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{p}{(}\PY{n}{absolute\PYZus{}import}\PY{p}{,} \PY{n}{division}\PY{p}{,} \PY{n}{print\PYZus{}function}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{p}{(}\PY{n}{absolute\PYZus{}import}\PY{p}{,} \PY{n}{division}\PY{p}{,} \PY{n}{print\PYZus{}function}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{}DF with only data from 2010 \PYZhy{}\PYZhy{} sorted alphabetically}
          \PY{n}{new\PYZus{}df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{maps}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
